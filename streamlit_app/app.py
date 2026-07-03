@@ -279,13 +279,16 @@ elif page_key == "nav_predict":
     def load_light_model():
         return joblib.load("models/sentiment_model_v2.pkl"), joblib.load("models/tfidf_vectorizer_v2.pkl")
 
-    @st.cache_resource
+   @st.cache_resource
     def load_marbert():
-        from transformers import pipeline
-        import torch
-        device = 0 if torch.cuda.is_available() else -1
-        return pipeline("text-classification", model="Ammar-alhaj-ali/arabic-MARBERT-sentiment",
-                        device=device, truncation=True, max_length=256)
+        try:
+            from transformers import pipeline
+            import torch
+            device = 0 if torch.cuda.is_available() else -1
+            return pipeline("text-classification", model="Ammar-alhaj-ali/arabic-MARBERT-sentiment",
+                            device=device, truncation=True, max_length=256)
+        except Exception:
+            return None   # transformers مش متثبّت (نسخة النشر) — نتجاهل MARBERT بأمان
 
     model, vec = load_light_model()
 
