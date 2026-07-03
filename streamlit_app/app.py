@@ -2,11 +2,17 @@
 GovInsight — Bilingual AI Analytics Dashboard
 AI-Powered Citizen Feedback Intelligence Platform
 """
+import os
 import streamlit as st
 import pandas as pd
 import re
 import plotly.graph_objects as go
 from translations import t
+
+# مجلد التطبيق (عشان المسارات تشتغل صح أياً كان مكان التشغيل)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.join(BASE_DIR, "data")
+MODELS_DIR = os.path.join(BASE_DIR, "models")
 
 # ============ PAGE CONFIG ============
 st.set_page_config(page_title="GovInsight | AI Analytics", page_icon="🏛️",
@@ -64,11 +70,11 @@ lang = st.session_state.lang
 # ============ LOAD DATA ============
 @st.cache_data
 def load_data():
-    df = pd.read_csv("data/nlp_with_sentiment.csv")
-    topics = pd.read_csv("data/complaint_topics.csv")
-    priority = pd.read_csv("data/priority_scores.csv")
-    anomaly = pd.read_csv("data/anomaly_results.csv")
-    over_time = pd.read_csv("data/sentiment_over_time.csv")
+    df = pd.read_csv(os.path.join(DATA_DIR, "nlp_with_sentiment.csv"))
+    topics = pd.read_csv(os.path.join(DATA_DIR, "complaint_topics.csv"))
+    priority = pd.read_csv(os.path.join(DATA_DIR, "priority_scores.csv"))
+    anomaly = pd.read_csv(os.path.join(DATA_DIR, "anomaly_results.csv"))
+    over_time = pd.read_csv(os.path.join(DATA_DIR, "sentiment_over_time.csv"))
     return df, topics, priority, anomaly, over_time
 
 df, topics, priority, anomaly, over_time = load_data()
@@ -277,7 +283,7 @@ elif page_key == "nav_predict":
 
     @st.cache_resource
     def load_light_model():
-        return joblib.load("models/sentiment_model_v2.pkl"), joblib.load("models/tfidf_vectorizer_v2.pkl")
+        return joblib.load(os.path.join(MODELS_DIR, "sentiment_model_v2.pkl")), joblib.load(os.path.join(MODELS_DIR, "tfidf_vectorizer_v2.pkl"))
 
     @st.cache_resource
     def load_marbert():
