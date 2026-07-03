@@ -279,7 +279,7 @@ elif page_key == "nav_predict":
     def load_light_model():
         return joblib.load("models/sentiment_model_v2.pkl"), joblib.load("models/tfidf_vectorizer_v2.pkl")
 
-   @st.cache_resource
+@st.cache_resource
     def load_marbert():
         try:
             from transformers import pipeline
