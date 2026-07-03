@@ -1,0 +1,38 @@
+# ===== Python =====
+venv/
+env/
+ENV/
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+*.so
+
+# ===== بيئة وأسرار =====
+.env
+.env.local
+*.key
+secrets.json
+
+# ===== Jupyter =====
+.ipynb_checkpoints/
+
+# ===== نظام التشغيل =====
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ===== IDE =====
+.vscode/
+.idea/
+*.swp
+
+# ===== ملفات مؤقتة =====
+*.log
+*.tmp
+temp/
+cache/
+
+# ===== ملفات كبيرة اختيارية (فك التعليق لو محتاج) =====
+ *.pbix
+ data/1-bronze/
